@@ -12,8 +12,7 @@ const NoteState = (props) => {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        "auth-token":
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjY5M2YxYzc5M2JlOGRjYTU3ZWY0MjIyIn0sImlhdCI6MTcyMDk3NTQ3N30.FE61FiyQZQKenUDGPH_w_G7JjmHFyxMWr5qE4hfYgkQ",
+        "auth-token":localStorage.getItem('token'),
       },
     });
     const json = await response.json();
@@ -27,8 +26,7 @@ const NoteState = (props) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "auth-token":
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjY5M2YxYzc5M2JlOGRjYTU3ZWY0MjIyIn0sImlhdCI6MTcyMDk3NTQ3N30.FE61FiyQZQKenUDGPH_w_G7JjmHFyxMWr5qE4hfYgkQ",
+        "auth-token":localStorage.getItem('token'),
       },
       body: JSON.stringify(title, description, tag),
     });
@@ -44,13 +42,11 @@ const NoteState = (props) => {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
-        "auth-token":
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjY5M2YxYzc5M2JlOGRjYTU3ZWY0MjIyIn0sImlhdCI6MTcyMDk3NTQ3N30.FE61FiyQZQKenUDGPH_w_G7JjmHFyxMWr5qE4hfYgkQ",
+        "auth-token":localStorage.getItem('token'),
       }
     });
-    const json = response.json();
-
-    //Logic for delete
+    const json = response.json();  
+    console.log(json)
     const newNotes = notes.filter((note) => {
       return note._id !== id;
     });
@@ -63,16 +59,16 @@ const NoteState = (props) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "auth-token":
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjY5M2YxYzc5M2JlOGRjYTU3ZWY0MjIyIn0sImlhdCI6MTcyMDk3NTQ3N30.FE61FiyQZQKenUDGPH_w_G7JjmHFyxMWr5qE4hfYgkQ",
+        "auth-token":localStorage.getItem('token'),
       },
       body: JSON.stringify(title, description, tag),
     });
     const json = response.json();
-
-    //Logic for edit
-    for (let index = 0; index < notes.length; index++) {
-      const element = notes[index];
+    console.log(json)
+    let newNotes = JSON.parse(JSOn.stringify(notes))
+     //Logic for edit
+    for (let index = 0; index < newNotes.length; index++) {
+      const element = newNotes[index];
       if (element.id === id) {
         element.title = title;
         element.description = description;

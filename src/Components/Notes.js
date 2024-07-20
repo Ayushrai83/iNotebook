@@ -2,12 +2,18 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import noteContext from "../context/notes/noteContext";
 import Noteitem from "./Noteitem";
 import AddNote from "./AddNote";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 const Notes = () => {
   const context = useContext(noteContext);
+  let history = useHistory();
   const { notes, getNotes, editNote } = context;
   useEffect(() => {
-    getNotes();
+    if (localStorage.getItem("token")) {
+      getNotes();
+    } else {
+      history.push("/login");
+    }
     // eslint-disable-next-line
   }, []);
   const ref = useRef(null);
@@ -32,7 +38,7 @@ const Notes = () => {
   const handleClick = (e) => {
     editNote(note.id, note.etitle, note.edescription, note.etag);
     refClose.current.click();
-    props.showAlert("Updated Successfully" , "success");
+    props.showAlert("Updated Successfully", "success");
   };
 
   const onChange = (e) => {

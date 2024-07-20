@@ -22,8 +22,8 @@ const Login = (props) => {
     if (json.success) {
       //Save the auth token and redirect
       localStorage.setItem("token", json.authtoken);
-      history.push("/");
       props.showAlert("Logged in Successfully" , "success")
+      history.push("/");
 
     } else {
       props.showAlert("Invalid details" , "danger")
@@ -35,7 +35,7 @@ const Login = (props) => {
   };
 
   return (
-    <div className="container">
+    <div className="container">''
       <div className="flex items-center justify-center h-full">
         <form
           action="#"
